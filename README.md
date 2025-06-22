@@ -1,33 +1,34 @@
 # 📚 Catálogo do Sábio (CodeElevate)
 
-**Catálogo do Sábio** é uma API RESTful desenvolvida em Java com Spring Boot, parte da etapa de code challenge do processo **CodeELevate**. Implementa um sistema de gerenciamento de livros usando banco de dados H2 em memória, incluindo cache, documentação via Swagger e console H2.
+**Catálogo do Sábio** é uma API RESTful desenvolvida em Java com Spring Boot, parte do desafio técnico do processo **CodeElevate**. O sistema gerencia livros com operações CRUD, usando banco H2 em memória, cache com Redis e documentação automática via Swagger.
 
 ---
 
 ## 🔎 Visão Geral
 
-- Gerencia **livros** com operações CRUD.
-- Usa banco **H2 em memória** para testes rápidos sem configuração de BD externo.
-- Integração com **cache local** para melhorar performance.
-- Documentação automática de API via **Swagger / OpenAPI**.
-- Configuração leve, pensada para entregar o mínimo viável de API funcional.
+- 🔄 CRUD completo de **livros**
+- 🧠 **Cache com Redis** para melhorar performance
+- 🧪 Banco de dados **H2 em memória** (ideal para testes)
+- 📑 Documentação via **Swagger / OpenAPI**
+- ⚙️ Projeto pronto para rodar localmente ou com **Docker**
 
 ---
 
 ## 🛠️ Tecnologias
 
-- ✅ **Java 17+**
-- ✅ **Spring Boot**
-- ✅ **Spring Data JPA**, H2 database
-- ✅ **Spring Cache**
-- ✅ **Springdoc OpenAPI + Swagger UI**
-- ✅ **JUnit & Mockito** (teste automatizados)
+- ✅ Java 17+
+- ✅ Spring Boot 3.5.3
+- ✅ Spring Data JPA + H2 Database
+- ✅ Spring Cache + Redis
+- ✅ Springdoc OpenAPI + Swagger UI
+- ✅ JUnit + Mockito
+- ✅ Docker & Docker Compose
 
 ---
 
-## 🚀 Como rodar localmente
+## 🚀 Como rodar localmente (sem Docker)
 
-1. Clone este repositório (já feito 😊):
+1. Clone este repositório:
 
 ```bash
 git clone https://github.com/welingtonjunior/CodeElevate.git

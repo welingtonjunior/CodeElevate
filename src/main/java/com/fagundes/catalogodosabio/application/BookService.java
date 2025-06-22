@@ -21,7 +21,7 @@ public class BookService implements BookUseCase {
     }
 
     @Override
-    @Cacheable(value = "AllBooks", key = "#page + '-' #size")
+    @Cacheable(value = "AllBooks", key = "T(java.lang.String).format('%d-%d', #page, #size)")
     public List<Book> getAllBooks(int page, int size) {
         return bookRepositoryPort.findAll(page, size);
     }

@@ -25,7 +25,7 @@ public class BookController {
         return ResponseEntity.ok(bookUseCase.getAllBooks(page, size));
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable Long id){
         return ResponseEntity.ok(bookUseCase.getBookByid(id));
     }
@@ -39,8 +39,6 @@ public class BookController {
     public ResponseEntity<List<Book>> getBooksByAuthor(@PathVariable String author){
         return ResponseEntity.ok(bookUseCase.getBooksByAuthor(author));
     }
-
-
 
 
 }
