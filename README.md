@@ -1,6 +1,6 @@
 # 📚 Catálogo do Sábio (Code Elevate)
 
-**Catálogo do Sábio** é uma API RESTful desenvolvida em Java com Spring Boot, parte do desafio técnico do processo **Code Elevate**. O sistema gerencia livros com operações CRUD, usando banco H2 em memória, cache com Redis e documentação automática via Swagger.
+**Catálogo do Sábio** é uma API RESTful desenvolvida em Java com Spring Boot, parte do desafio técnico do processo **Code Elevate**. O sistema gerencia livros com operações de recuperação de dados, usando banco H2 em memória, cache com Redis e documentação automática via Swagger.
 
 ---
 ## 🏛️ Arquitetura de Solução e Arquitetura Técnica
