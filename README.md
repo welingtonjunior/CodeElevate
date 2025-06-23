@@ -121,12 +121,13 @@ Execute os testes com:
 
 ## Melhorias e Considerações Finais
 **Possíveis melhorias:**
-- Autenticação e autorização (JNT, OAuth) •
+• Autenticação e autorização (JNT, OAuth) 
 • Persistência em banco relacional externo (PostgresQL, MysQL).
 • Integração com APIs públicas de livros (OpenLibrary).
 - Deploy automatizado (CI/CD).
 - Monitoramento e métricas.
-Testes End-to-End automatizados.
+• Testes End-to-End automatizados.
+
 **Desafios e limitações:**
 - Integração do cache com dados dinâmicos.
 - Limitações do banco H2 para grandes volumes de dados.
