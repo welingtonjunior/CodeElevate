@@ -36,7 +36,7 @@ O domínio da aplicação é isolado de detalhes de infraestrutura, permitindo f
 
 ## Explicação sobre o Case Desenvolvido (Plano de Implementação)
 
-A API permite CRUD completo de livros, com busca por gênero e autor.
+A API permite a busca de dados sobre livros, com busca por gênero e autor.
 O fluxo principal é:
 1. O Controller expõe os endpoints REST.
 2. O Service (no domínio) executa a lógica de negócio.
