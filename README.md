@@ -3,29 +3,81 @@
 **Catálogo do Sábio** é uma API RESTful desenvolvida em Java com Spring Boot, parte do desafio técnico do processo **Code Elevate**. O sistema gerencia livros com operações CRUD, usando banco H2 em memória, cache com Redis e documentação automática via Swagger.
 
 ---
-## 🏛️ Arquitetura Hexagonal (Ports & Adapters)
-O projeto utiliza a **Arquitetura Hexagonal** (também conhecida como Ports & Adapters), que propõe uma separação clara entre a lógica de negócios (core/domínio) e os detalhes de infraestrutura (como banco de dados, web, cache, etc).
-Essa abordagem facilita testes, manutenções e possíveis trocas de tecnologias sem impactar o núcleo da aplicação.
-- **Camada de Domínio/Core**: Onde ficam as regras de negócio e modelos do sistema.
-- **Ports**: Interfaces que definem contratos para entrada (driving, ex: controllers REST) e saída (driven, ex: repositórios, cache).
-- **Adapters**: Implementações concretas das interfaces, conectando o domínio à infraestrutura (ex: adaptador do repositório JPA, serviço Redis,
-REST Controller).
-Assim, a API REST, o acesso ao banco (H2/JPA), o cache (Redis), e até a documentação (Swagger) são plugáveis, mantendo o domínio isolado e testável.
+## 🏛️ I. Arquitetura de Solução e Arquitetura Técnica
+O projeto adota a **Arquitetura Hexagonal (Ports & Adapters)** para facilitar a testabilidade, manutenção e flexibilidade tecnológica.
+O domínio da aplicação é isolado de detalhes de infraestrutura, permitindo fácil adaptação para diferentes bancos de dados ou camadas externas.
+**Escolhas técnicas:**
+- **Spring Boot:** Framework robusto
+para desenvolvimento de APIs REST.
+- **H2 Database:** Banco em memória para facilitar testes e reprodutibilidade.
+- **Redis:** Cache para respostas rápidas às queries mais frequentes.
+- **Swagger:** Documentação automática dos endpoints.
+- **Docker:** Padronização do ambiente de execução.
+**Diagrama simplificado:**
 
 ```
-Camada de Aplicação (Core) <--> Ports <--› Adapters (Web, Banco, Cache, etc)
+[REST Controller]
+       |
+       v
+[BookUseCase Port] <---> [BookService - Domínio]
+       |
+       v
+[BookRepositoryPort]      [CachePort]
+       |                        |
+       v                        v
+[BookRepository Adapter] [Redis Adapter]
+       |                        |
+       v                        v
+[Banco H2]                  [Redis]
 ```
----
-
-## 🔎 Visão Geral
-
-- 🔄 CRUD completo de **livros**
-- 🧠 **Cache com Redis** para melhorar performance
-- 🧪 Banco de dados **H2 em memória** (ideal para testes)
-- 📑 Documentação via **Swagger / OpenAPI**
-- ⚙️ Projeto pronto para rodar localmente ou com **Docker**
 
 ---
+
+## II. Explicação sobre o Case Desenvolvido (Plano de Implementação)
+
+A API permite CRUD completo de livros, com busca por gênero e autor.
+O fluxo principal é:
+1. O Controller expõe os endpoints REST.
+2. O Service (no domínio) executa a lógica de negócio.
+3. Os Ports definem contratos para repositórios e cache.
+4. Adapters implementam esses contratos usando Spring Data JPA (H2) e Redis.
+
+**Entidade principal:**
+- **Book:** id, título, autor, gênero, descrição, ano, etc.
+
+**Aquisição de Dados:**
+- A base de dados é automaticamente populada no início da aplicação com 200 livros fictícios, gerados p autores, gêneros e demais informações realistas.
+
+**Paginação e Cache:**
+- Todas as requisições dos endpoints de livros utilizam cache via Redis, acelerando a resposta para cons banco de dados. As respostas podem ser paginadas conforme necessário.
+
+**Tratamento de Erros:**
+- Erros tratados com mensagens informativas e códigos HTTP adequados (ex: 404 para não encontrado).
+
+**Testes: **
+- Cobertura de testes unitários em serviços e integração de endpoints, utilizando JUnit e Mockito.
+
+---
+
+## III, Melhorias e Considerações Finais
+**Possíveis melhorias:**
+- Autenticação e autorização (JNT, OAuth) •
+• Persistência em banco relacional externo (PostgresQL, MysQL).
+• Integração com APIs públicas de livros (OpenLibrary).
+- Deploy automatizado (CI/CD).
+- Monitoramento e métricas.
+Testes End-to-End automatizados.
+**Desafios e limitações:**
+- Integração do cache com dados dinâmicos.
+- Limitações do banco H2 para grandes volumes de dados.
+- Decisão por mock de dados vs. ingestão real de datasets.
+---
+
+## Reprodutibilidade
+Todo o ambiente pode ser iniciado com um simples "docker-compose up --build.
+Para customização de portas ou variáveis, edite o arquivo *docker-compose.ym]*.
+A documentação Swagger está disponível em
+*/swagger-ui.html após o deploy.
 
 ## 🛠️ Tecnologias
 
