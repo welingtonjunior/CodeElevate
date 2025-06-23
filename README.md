@@ -47,10 +47,10 @@ O fluxo principal é:
 - **Book:** id, título, autor, gênero, descrição, ano, etc.
 
 **Aquisição de Dados:**
-- A base de dados é automaticamente populada no início da aplicação com 200 livros fictícios, gerados p autores, gêneros e demais informações realistas.
+- A base de dados é automaticamente populada no início da aplicação com 200 livros fictícios, gerados autores, gêneros e demais informações realistas.
 
 **Paginação e Cache:**
-- Todas as requisições dos endpoints de livros utilizam cache via Redis, acelerando a resposta para cons banco de dados. As respostas podem ser paginadas conforme necessário.
+- Todas as requisições dos endpoints de livros utilizam cache via Redis, acelerando a resposta para consulta banco de dados. As respostas podem ser paginadas conforme necessário.
 
 **Tratamento de Erros:**
 - Erros tratados com mensagens informativas e códigos HTTP adequados (ex: 404 para não encontrado).
