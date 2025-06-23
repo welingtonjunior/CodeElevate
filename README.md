@@ -6,13 +6,14 @@
 ## 🏛️ I. Arquitetura de Solução e Arquitetura Técnica
 O projeto adota a **Arquitetura Hexagonal (Ports & Adapters)** para facilitar a testabilidade, manutenção e flexibilidade tecnológica.
 O domínio da aplicação é isolado de detalhes de infraestrutura, permitindo fácil adaptação para diferentes bancos de dados ou camadas externas.
-**Escolhas técnicas:**
-- **Spring Boot:** Framework robusto
-para desenvolvimento de APIs REST.
-- **H2 Database:** Banco em memória para facilitar testes e reprodutibilidade.
-- **Redis:** Cache para respostas rápidas às queries mais frequentes.
-- **Swagger:** Documentação automática dos endpoints.
-- **Docker:** Padronização do ambiente de execução.
+
+### ⚙️ Escolhas Técnicas
+- **Spring Boot:** Framework robusto para desenvolvimento de APIs REST.
+- **H2 Database:** Banco de dados em memória, ideal para testes e desenvolvimento local.
+- **Redis:** Armazenamento em cache para acelerar consultas frequentes.
+- **Swagger (Springdoc OpenAPI):** Documentação automática dos endpoints.
+- **Docker:** Containerização e padronização do ambiente de execução.
+
 **Diagrama simplificado:**
 
 ```
@@ -28,7 +29,7 @@ para desenvolvimento de APIs REST.
 [BookRepository Adapter] [Redis Adapter]
        |                        |
        v                        v
-[Banco H2]                  [Redis]
+     [H2 DB]                  [Redis]               [Redis]
 ```
 
 ---
@@ -54,12 +55,12 @@ O fluxo principal é:
 **Tratamento de Erros:**
 - Erros tratados com mensagens informativas e códigos HTTP adequados (ex: 404 para não encontrado).
 
-**Testes: **
+**Testes:**
 - Cobertura de testes unitários em serviços e integração de endpoints, utilizando JUnit e Mockito.
 
 ---
 
-## III, Melhorias e Considerações Finais
+## III. Melhorias e Considerações Finais
 **Possíveis melhorias:**
 - Autenticação e autorização (JNT, OAuth) •
 • Persistência em banco relacional externo (PostgresQL, MysQL).
