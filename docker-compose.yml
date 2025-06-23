@@ -14,5 +14,7 @@ services:
   redis:
     image: redis:7.2
     container_name: redis
+    environment:
+      - REDIS_PASSWORD=1234
     ports:
       - "6379:6379"

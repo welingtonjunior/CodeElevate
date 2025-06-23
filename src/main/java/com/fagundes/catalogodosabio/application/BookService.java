@@ -16,7 +16,7 @@ public class BookService implements BookUseCase {
 
     private final BookRepositoryPort bookRepositoryPort;
 
-    public BookService(BookRepositoryPort bookRepositoryPort){
+    public BookService(BookRepositoryPort bookRepositoryPort) {
         this.bookRepositoryPort = bookRepositoryPort;
     }
 
@@ -34,24 +34,26 @@ public class BookService implements BookUseCase {
     }
 
     @Override
+    @Cacheable(value = "booksByGenre", key = "#genre")
     public List<Book> getBooksByGenre(String genre) {
         String genreFormatted = genre.substring(0, 1).toUpperCase() + genre.substring(1);
 
         List<Book> books = bookRepositoryPort.findByGenre(genreFormatted);
 
-        if (books.isEmpty()){
-            throw  new BooksByGenreNotFoundException(genreFormatted);
+        if (books.isEmpty()) {
+            throw new BooksByGenreNotFoundException(genreFormatted);
         }
         return books;
     }
 
     @Override
+    @Cacheable(value = "booksByAuthor", key = "#author")
     public List<Book> getBooksByAuthor(String author) {
         String authorFormatted = author.substring(0, 1).toUpperCase() + author.substring(1);
 
         List<Book> books = bookRepositoryPort.findByAuthor(authorFormatted);
 
-        if (books.isEmpty()){
+        if (books.isEmpty()) {
             throw new BooksByAuthorNotFoundException(authorFormatted);
         }
         return books;
