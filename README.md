@@ -3,7 +3,7 @@
 **Catálogo do Sábio** é uma API RESTful desenvolvida em Java com Spring Boot, parte do desafio técnico do processo **Code Elevate**. O sistema gerencia livros com operações CRUD, usando banco H2 em memória, cache com Redis e documentação automática via Swagger.
 
 ---
-## 🏛️ I. Arquitetura de Solução e Arquitetura Técnica
+## 🏛️ Arquitetura de Solução e Arquitetura Técnica
 O projeto adota a **Arquitetura Hexagonal (Ports & Adapters)** para facilitar a testabilidade, manutenção e flexibilidade tecnológica.
 O domínio da aplicação é isolado de detalhes de infraestrutura, permitindo fácil adaptação para diferentes bancos de dados ou camadas externas.
 
@@ -29,12 +29,12 @@ O domínio da aplicação é isolado de detalhes de infraestrutura, permitindo f
 [BookRepository Adapter] [Redis Adapter]
        |                        |
        v                        v
-     [H2 DB]                  [Redis]               [Redis]
+     [H2 DB]                  [Redis]      
 ```
 
 ---
 
-## II. Explicação sobre o Case Desenvolvido (Plano de Implementação)
+## Explicação sobre o Case Desenvolvido (Plano de Implementação)
 
 A API permite CRUD completo de livros, com busca por gênero e autor.
 O fluxo principal é:
@@ -60,19 +60,7 @@ O fluxo principal é:
 
 ---
 
-## III. Melhorias e Considerações Finais
-**Possíveis melhorias:**
-- Autenticação e autorização (JNT, OAuth) •
-• Persistência em banco relacional externo (PostgresQL, MysQL).
-• Integração com APIs públicas de livros (OpenLibrary).
-- Deploy automatizado (CI/CD).
-- Monitoramento e métricas.
-Testes End-to-End automatizados.
-**Desafios e limitações:**
-- Integração do cache com dados dinâmicos.
-- Limitações do banco H2 para grandes volumes de dados.
-- Decisão por mock de dados vs. ingestão real de datasets.
----
+
 
 ## Reprodutibilidade
 Todo o ambiente pode ser iniciado com um simples "docker-compose up --build.
@@ -130,3 +118,17 @@ Execute os testes com:
 
 ./mvnw test
 ```
+
+## Melhorias e Considerações Finais
+**Possíveis melhorias:**
+- Autenticação e autorização (JNT, OAuth) •
+• Persistência em banco relacional externo (PostgresQL, MysQL).
+• Integração com APIs públicas de livros (OpenLibrary).
+- Deploy automatizado (CI/CD).
+- Monitoramento e métricas.
+Testes End-to-End automatizados.
+**Desafios e limitações:**
+- Integração do cache com dados dinâmicos.
+- Limitações do banco H2 para grandes volumes de dados.
+- Decisão por mock de dados vs. ingestão real de datasets.
+---
