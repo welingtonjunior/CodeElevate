@@ -3,7 +3,7 @@
 **Catálogo do Sábio** é uma API RESTful desenvolvida em Java com Spring Boot, parte do desafio técnico do processo **Code Elevate**. O sistema gerencia livros com operações CRUD, usando banco H2 em memória, cache com Redis e documentação automática via Swagger.
 
 ---
-## Arquitetura Hexagonal (Ports & Adapters)
+## 🏛️ Arquitetura Hexagonal (Ports & Adapters)
 O projeto utiliza a **Arquitetura Hexagonal** (também conhecida como Ports & Adapters), que propõe uma separação clara entre a lógica de negócios (core/domínio) e os detalhes de infraestrutura (como banco de dados, web, cache, etc).
 Essa abordagem facilita testes, manutenções e possíveis trocas de tecnologias sem impactar o núcleo da aplicação.
 - **Camada de Domínio/Core**: Onde ficam as regras de negócio e modelos do sistema.
