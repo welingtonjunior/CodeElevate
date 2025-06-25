@@ -1,4 +1,4 @@
-package com.fagundes.catalogodosabio.domain.config;
+package com.fagundes.catalogodosabio.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
