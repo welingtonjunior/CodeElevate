@@ -34,7 +34,7 @@ public class BookServiceTest {
 
         Mockito.when(bookRepositoryPort.findAll(0, 10)).thenReturn(books);
 
-        List<Book> result = bookService.getAllBooks(0, 10);
+        List<Book> result = bookService.getAllBooks(0, 10).getContent();
 
         Assertions.assertEquals(2, result.size());
         Assertions.assertEquals("Book One", result.get(0).getTitle());
@@ -64,9 +64,9 @@ public class BookServiceTest {
     public void testGetBooksByGenre_Found() {
         List<Book> books = List.of(new Book(1L, "Book One", "Author One", "Genre One", "ffdsf",123213434, "123213434"));
 
-        Mockito.when(bookRepositoryPort.findByGenre("Genre One")).thenReturn(books);
+        Mockito.when(bookRepositoryPort.findByGenre("Genre One", 1, 0)).thenReturn(books);
 
-        List<Book> result = bookService.getBooksByGenre("Genre One");
+        List<Book> result = bookService.getBooksByGenre("Genre One", 1, 0).getContent();
 
         Assertions.assertFalse(result.isEmpty());
         Assertions.assertEquals("Genre One", result.get(0).getGenre());
@@ -74,10 +74,10 @@ public class BookServiceTest {
 
     @Test
     public void testGetBooksByGenre_NotFound() {
-        Mockito.when(bookRepositoryPort.findByGenre("SciFi")).thenReturn(List.of());
+        Mockito.when(bookRepositoryPort.findByGenre("SciFi", 1, 0)).thenReturn(List.of());
 
         Assertions.assertThrows(BooksByGenreNotFoundException.class, () -> {
-            bookService.getBooksByGenre("sciFi");
+            bookService.getBooksByGenre("sciFi", 1, 0);
         });
     }
 
@@ -85,9 +85,9 @@ public class BookServiceTest {
     public void testGetBooksByAuthor_Found() {
         List<Book> books = List.of(new Book(1L, "Book One", "Author One", "Genre One", "ffdsf",123213434, "123213434"));
 
-        Mockito.when(bookRepositoryPort.findByAuthor("Author One")).thenReturn(books);
+        Mockito.when(bookRepositoryPort.findByAuthor("Author One", 1, 0)).thenReturn(books);
 
-        List<Book> result = bookService.getBooksByAuthor("Author One");
+        List<Book> result = bookService.getBooksByAuthor("Author One", 1, 0).getContent();
 
         Assertions.assertFalse(result.isEmpty());
         Assertions.assertEquals("Author One", result.get(0).getAuthor());
@@ -95,10 +95,10 @@ public class BookServiceTest {
 
     @Test
     public void testGetBooksByAuthor_NotFound() {
-        Mockito.when(bookRepositoryPort.findByAuthor("Unknown")).thenReturn(List.of());
+        Mockito.when(bookRepositoryPort.findByAuthor("Unknown", 1, 0)).thenReturn(List.of());
 
         Assertions.assertThrows(BooksByAuthorNotFoundException.class, () -> {
-            bookService.getBooksByAuthor("unknown");
+            bookService.getBooksByAuthor("unknown", 1, 0);
         });
     }
 }

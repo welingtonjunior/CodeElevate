@@ -28,21 +28,26 @@ public interface BookRepositoryPort {
      */
     Optional<Book> findById(Long id);
 
-    /**
-     * Recupera uma lista de livros de um determinado gênero.
-     *
-     * @param genre Gênero do livro (ex: "Fantasia", "Romance").
-     * @return Lista de livros que pertencem ao gênero solicitado.
-     */
-    List<Book> findByGenre(String genre);
 
     /**
-     * Recupera uma lista de livros de um determinado autor.
+     * Recupera uma lista de livros de um determinado gênero com paginação.
+     *
+     * @param genre Gênero do livro (ex: "Fantasia", "Romance").
+     * @param page  Número da página.
+     * @param size  Tamanho da página.
+     * @return Lista paginada de livros que pertencem ao gênero solicitado.
+     */
+    List<Book> findByGenre(String genre, int page, int size);
+
+    /**
+     * Recupera uma lista de livros de um determinado autor com paginação.
      *
      * @param author Nome do autor do livro.
-     * @return Lista de livros do autor solicitado.
+     * @param page   Número da página.
+     * @param size   Tamanho da página.
+     * @return Lista paginada de livros do autor solicitado.
      */
-    List<Book> findByAuthor(String author);
+    List<Book> findByAuthor(String author, int page, int size);
 
     /**
      * Salva um livro no repositório.
@@ -52,4 +57,8 @@ public interface BookRepositoryPort {
      * @return O livro salvo, com todos os campos preenchidos, incluindo o ID gerado.
      */
     Book save(Book book);
+
+    long countAll();
+    long countByGenre(String genre);
+    long countByAuthor(String author);
 }

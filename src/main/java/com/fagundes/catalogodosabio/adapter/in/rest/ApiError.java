@@ -25,8 +25,8 @@ public class ApiError {
      * @param message Mensagem detalhada sobre o erro.
      * @param traceId O ID do rastreamento da requisição, utilizado para monitoramento e depuração.
      */
-    public ApiError(int status, String error, String path, String message, String traceId) {
-        this.timestamp = Instant.now();  // Marca o momento do erro.
+    public ApiError(int status, String error, String message, String path, String traceId) {
+        this.timestamp = Instant.now();
         this.status = status;
         this.error = error;
         this.message = message;

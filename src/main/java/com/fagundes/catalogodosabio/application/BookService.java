@@ -4,9 +4,9 @@ import com.fagundes.catalogodosabio.domain.exception.BookNotFoundException;
 import com.fagundes.catalogodosabio.domain.exception.BooksByAuthorNotFoundException;
 import com.fagundes.catalogodosabio.domain.exception.BooksByGenreNotFoundException;
 import com.fagundes.catalogodosabio.domain.model.Book;
+import com.fagundes.catalogodosabio.domain.model.BookPage;
 import com.fagundes.catalogodosabio.domain.port.in.BookUseCase;
 import com.fagundes.catalogodosabio.domain.port.out.BookRepositoryPort;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,41 +21,34 @@ public class BookService implements BookUseCase {
     }
 
     @Override
-    @Cacheable(value = "AllBooks", key = "T(java.lang.String).format('%d-%d', #page, #size)")
-    public List<Book> getAllBooks(int page, int size) {
-        return bookRepositoryPort.findAll(page, size);
+    public BookPage<Book> getAllBooks(int page, int size) {
+        List<Book> books = bookRepositoryPort.findAll(page, size);
+        long totalBooks = bookRepositoryPort.countAll();
+        return new BookPage<>(books, page, size, totalBooks);
     }
 
     @Override
-    @Cacheable(value = "books", key = "#id")
     public Book getBookByid(Long id) {
-        return bookRepositoryPort.findById(id)
-                .orElseThrow(() -> new BookNotFoundException(id));
+        return bookRepositoryPort.findById(id).orElseThrow(() -> new BookNotFoundException(id));
     }
 
     @Override
-    @Cacheable(value = "booksByGenre", key = "#genre")
-    public List<Book> getBooksByGenre(String genre) {
-        String genreFormatted = genre.substring(0, 1).toUpperCase() + genre.substring(1);
-
-        List<Book> books = bookRepositoryPort.findByGenre(genreFormatted);
-
+    public BookPage<Book> getBooksByGenre(String genre, int page, int size) {
+        List<Book> books = bookRepositoryPort.findByGenre(genre, page, size);
+        long totalBooks = bookRepositoryPort.countByGenre(genre);
         if (books.isEmpty()) {
-            throw new BooksByGenreNotFoundException(genreFormatted);
+            throw new BooksByGenreNotFoundException(genre);
         }
-        return books;
+        return new BookPage<>(books, page, size, totalBooks);
     }
 
     @Override
-    @Cacheable(value = "booksByAuthor", key = "#author")
-    public List<Book> getBooksByAuthor(String author) {
-        String authorFormatted = author.substring(0, 1).toUpperCase() + author.substring(1);
-
-        List<Book> books = bookRepositoryPort.findByAuthor(authorFormatted);
-
+    public BookPage<Book> getBooksByAuthor(String author, int page, int size) {
+        List<Book> books = bookRepositoryPort.findByAuthor(author, page, size);
+        long totalBooks = bookRepositoryPort.countByAuthor(author);
         if (books.isEmpty()) {
-            throw new BooksByAuthorNotFoundException(authorFormatted);
+            throw new BooksByAuthorNotFoundException(author);
         }
-        return books;
+        return new BookPage<>(books, page, size, totalBooks);
     }
 }

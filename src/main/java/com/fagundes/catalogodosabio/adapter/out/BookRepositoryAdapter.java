@@ -28,17 +28,32 @@ public class BookRepositoryAdapter implements BookRepositoryPort {
     }
 
     @Override
-    public List<Book> findByGenre(String genre) {
-        return repository.findByGenre(genre);
+    public List<Book> findByGenre(String genre, int page, int size) {
+        return repository.findByGenreContainingIgnoreCase(genre, PageRequest.of(page, size)).getContent();
     }
 
     @Override
-    public List<Book> findByAuthor(String author) {
-        return repository.findByAuthor(author);
+    public List<Book> findByAuthor(String author, int page, int size) {
+        return repository.findByAuthorContainingIgnoreCase(author, PageRequest.of(page, size)).getContent();
     }
 
     @Override
     public Book save(Book book) {
         return repository.save(book);
+    }
+
+    @Override
+    public long countAll() {
+        return repository.count();
+    }
+
+    @Override
+    public long countByGenre(String genre) {
+        return repository.countByGenreContainingIgnoreCase(genre);
+    }
+
+    @Override
+    public long countByAuthor(String author) {
+        return repository.countByAuthorContainingIgnoreCase(author);
     }
 }
