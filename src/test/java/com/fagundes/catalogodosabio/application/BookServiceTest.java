@@ -25,6 +25,9 @@ public class BookServiceTest {
     @InjectMocks
     private BookService bookService;
 
+    /**
+     * Testa se o método getAllBooks retorna corretamente uma lista de livros.
+     */
     @Test
     public void testGetAllBooks_ReturnsList() {
         List<Book> books = List.of(
@@ -40,6 +43,9 @@ public class BookServiceTest {
         Assertions.assertEquals("Book One", result.get(0).getTitle());
     }
 
+    /**
+     * Testa se o método getBookByid retorna o livro correto quando encontrado.
+     */
     @Test
     public void testGetBookById_Found() {
         Book book = new Book(1L, "Book One", "Author One", "Genre One", "ffdsf",123213434, "123213434");
@@ -51,6 +57,10 @@ public class BookServiceTest {
         Assertions.assertEquals("Book One", result.getTitle());
     }
 
+    /**
+     * Testa se o método getBookByid lança uma exceção quando o livro não é encontrado.
+     */
+
     @Test
     public void testGetBookById_NotFound() {
         Mockito.when(bookRepositoryPort.findById(1L)).thenReturn(Optional.empty());
@@ -59,7 +69,9 @@ public class BookServiceTest {
             bookService.getBookByid(1L);
         });
     }
-
+    /**
+     * Testa se o método getBooksByGenre retorna livros quando encontrados para o gênero especificado.
+     */
     @Test
     public void testGetBooksByGenre_Found() {
         List<Book> books = List.of(new Book(1L, "Book One", "Author One", "Genre One", "ffdsf",123213434, "123213434"));
@@ -72,15 +84,21 @@ public class BookServiceTest {
         Assertions.assertEquals("Genre One", result.get(0).getGenre());
     }
 
+    /**
+     * Testa se o método getBooksByGenre lança exceção quando nenhum livro é encontrado para o gênero especificado.
+     */
     @Test
     public void testGetBooksByGenre_NotFound() {
-        Mockito.when(bookRepositoryPort.findByGenre("SciFi", 1, 0)).thenReturn(List.of());
-
+        Mockito.when(bookRepositoryPort.findByGenre("sciFi", 1, 0)).thenReturn(List.of());
         Assertions.assertThrows(BooksByGenreNotFoundException.class, () -> {
             bookService.getBooksByGenre("sciFi", 1, 0);
         });
+
     }
 
+    /**
+     * Testa se o método getBooksByAuthor retorna livros quando encontrados para o autor especificado.
+     */
     @Test
     public void testGetBooksByAuthor_Found() {
         List<Book> books = List.of(new Book(1L, "Book One", "Author One", "Genre One", "ffdsf",123213434, "123213434"));
@@ -93,12 +111,16 @@ public class BookServiceTest {
         Assertions.assertEquals("Author One", result.get(0).getAuthor());
     }
 
+    /**
+     * Testa se o método getBooksByAuthor lança exceção quando nenhum livro é encontrado para o autor especificado.
+     */
+
     @Test
     public void testGetBooksByAuthor_NotFound() {
-        Mockito.when(bookRepositoryPort.findByAuthor("Unknown", 1, 0)).thenReturn(List.of());
-
+        Mockito.when(bookRepositoryPort.findByAuthor("unknown", 1, 0)).thenReturn(List.of());
         Assertions.assertThrows(BooksByAuthorNotFoundException.class, () -> {
             bookService.getBooksByAuthor("unknown", 1, 0);
         });
+
     }
 }

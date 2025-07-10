@@ -111,13 +111,6 @@ A aplicação estará disponível em: http://localhost:8080/swagger-ui.html
 - GET	/books/genre/{g}	Lista livros por gênero
 - GET	/books/author/{a}	Lista livros por autor
 
-## 🛠️ Testes
-Execute os testes com:
-
-```bash
-
-./mvnw test
-```
 
 ## Melhorias e Considerações Finais
 **Possíveis melhorias:**

@@ -2,10 +2,11 @@ package com.fagundes.catalogodosabio.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.io.Serializable;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BookPage<T> {
+public class BookPage<T> implements Serializable {
     private List<T> content;
     private int pageNumber;
     private int pageSize;

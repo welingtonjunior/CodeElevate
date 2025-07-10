@@ -7,6 +7,7 @@ import com.fagundes.catalogodosabio.domain.model.Book;
 import com.fagundes.catalogodosabio.domain.model.BookPage;
 import com.fagundes.catalogodosabio.domain.port.in.BookUseCase;
 import com.fagundes.catalogodosabio.domain.port.out.BookRepositoryPort;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class BookService implements BookUseCase {
     }
 
     @Override
+    @Cacheable(value = "books", key = "'allBooks_' + #page + '_' + #size")
     public BookPage<Book> getAllBooks(int page, int size) {
         List<Book> books = bookRepositoryPort.findAll(page, size);
         long totalBooks = bookRepositoryPort.countAll();
@@ -28,11 +30,13 @@ public class BookService implements BookUseCase {
     }
 
     @Override
+    @Cacheable(value = "bookById", key = "#id")
     public Book getBookByid(Long id) {
         return bookRepositoryPort.findById(id).orElseThrow(() -> new BookNotFoundException(id));
     }
 
     @Override
+    @Cacheable(value = "booksByGenre", key = "#genre + '_' + #page + '_' + #size")
     public BookPage<Book> getBooksByGenre(String genre, int page, int size) {
         List<Book> books = bookRepositoryPort.findByGenre(genre, page, size);
         long totalBooks = bookRepositoryPort.countByGenre(genre);
@@ -43,6 +47,7 @@ public class BookService implements BookUseCase {
     }
 
     @Override
+    @Cacheable(value = "booksByAuthor", key = "#author + '_' + #page + '_' + #size")
     public BookPage<Book> getBooksByAuthor(String author, int page, int size) {
         List<Book> books = bookRepositoryPort.findByAuthor(author, page, size);
         long totalBooks = bookRepositoryPort.countByAuthor(author);
