@@ -114,7 +114,7 @@ A aplicação estará disponível em: http://localhost:8080/swagger-ui.html
 
 ## Melhorias e Considerações Finais
 **Possíveis melhorias:**
-- Autenticação e autorização (JNT, OAuth) 
+- Autenticação e autorização (JWT, OAuth) 
 - Persistência em banco relacional externo (PostgresQL, MysQL).
 - Integração com APIs públicas de livros (OpenLibrary).
 - Deploy automatizado (CI/CD).
