@@ -1,25 +1,22 @@
 version: '3.8'
 
 services:
-  # Serviço do Backend (Spring Boot)
+
   app:
     build: .
     ports:
-      - "8080:8080"
+      - "8081:8081"
     depends_on:
       - redis
     environment:
       SPRING_REDIS_HOST: redis
       SPRING_REDIS_PORT: 6379
 
-  # Serviço do Redis
   redis:
     image: redis:7.2
     container_name: redis
     ports:
       - "6379:6379"
-
-  # Serviço do Frontend (Angular)
   frontend:
     build:
       context: ../CodeElevateFront
